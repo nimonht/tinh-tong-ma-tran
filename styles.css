@@ -1,0 +1,40 @@
+body {
+    padding: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-mode {
+    background-color: #343a40;
+    color: #ffffff;
+}
+
+#output {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+pre {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.credit {
+    margin-top: 40px;
+    font-style: italic;
+    text-align: center;
+}
+
+/* Popup styles */
+.popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    display: none;
+    z-index: 1000;
+}

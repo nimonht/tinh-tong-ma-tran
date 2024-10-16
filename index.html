@@ -3,34 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tìm Tổng Lớn Nhất K x K by tan sinh vien huflit</title>
+    <title>Tìm Tổng Lớn Nhất K x K</title>
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            padding: 20px;
-        }
-        #output {
-            margin-top: 20px;
-            font-weight: bold;
-        }
-        pre {
-            background-color: #f8f9fa;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .credit {
-            margin-top: 40px;
-            font-style: italic;
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css"> <!-- Kết nối đến tệp CSS -->
 </head>
 <body>
 
 <div class="container">
     <h1 class="text-center">Tìm Tổng Lớn Nhất K x K</h1>
+
+    <!-- Dark Mode Switch -->
+    <div class="form-group">
+        <label>
+            <input type="checkbox" id="darkModeSwitch" onchange="toggleDarkMode()"> Chế độ tối
+        </label>
+    </div>
+
     <form id="matrixForm">
         <div class="form-group">
             <label for="n">N (kích thước ma trận):</label>
@@ -49,11 +38,12 @@
 
     <div id="output" class="alert alert-info mt-4" style="display: none;"></div>
 
+    <!-- C++ Code Section -->
     <button class="btn btn-secondary mt-4" data-toggle="collapse" data-target="#cppCode">
         Hiện/Ẩn Mã C++ để sao chép
     </button>
     <div id="cppCode" class="collapse mt-3">
-        <pre>
+        <pre id="cppSnippet">
 #include &lt;iostream&gt;
 #include &lt;vector&gt;
 using namespace std;
@@ -87,13 +77,16 @@ int main() {
     return 0;
 }
         </pre>
+        <button class="btn btn-outline-primary mt-2" onclick="copyToClipboard('cppSnippet')">Sao chép mã C++</button>
+        <button class="btn btn-outline-success mt-2" onclick="downloadFile('code.cpp', cppCode)">Tải mã C++</button>
     </div>
 
+    <!-- C# Code Section -->
     <button class="btn btn-secondary mt-4" data-toggle="collapse" data-target="#csharpCode">
         Hiện/Ẩn Mã C# để sao chép
     </button>
     <div id="csharpCode" class="collapse mt-3">
-        <pre>
+        <pre id="csharpSnippet">
 using System;
 using System.Linq;
 
@@ -130,13 +123,16 @@ class Program {
     }
 }
         </pre>
+        <button class="btn btn-outline-primary mt-2" onclick="copyToClipboard('csharpSnippet')">Sao chép mã C#</button>
+        <button class="btn btn-outline-success mt-2" onclick="downloadFile('code.cs', csharpCode)">Tải mã C#</button>
     </div>
 
+    <!-- Python Code Section -->
     <button class="btn btn-secondary mt-4" data-toggle="collapse" data-target="#pythonCode">
         Hiện/Ẩn Mã Python để sao chép
     </button>
     <div id="pythonCode" class="collapse mt-3">
-        <pre>
+        <pre id="pythonSnippet">
 n, k = map(int, input().split())
 matrix = [list(map(int, input().split(','))) for _ in range(n)]
 
@@ -152,6 +148,8 @@ for i in range(n - k + 1):
 
 print("Tổng Lớn Nhất:", max_sum)
         </pre>
+        <button class="btn btn-outline-primary mt-2" onclick="copyToClipboard('pythonSnippet')">Sao chép mã Python</button>
+        <button class="btn btn-outline-success mt-2" onclick="downloadFile('code.py', pythonCode)">Tải mã Python</button>
     </div>
 
     <!-- Credit Section -->
@@ -160,46 +158,14 @@ print("Tổng Lớn Nhất:", max_sum)
     </div>
 </div>
 
+<!-- Popup notification -->
+<div id="popup" class="popup">Đã sao chép mã vào clipboard!</div>
+
 <!-- Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<script>
-function findMaxSum() {
-    const n = parseInt(document.getElementById('n').value);
-    const k = parseInt(document.getElementById('k').value);
-    const matrixInput = document.getElementById('matrix').value.trim().split('\n');
-
-    // Khởi tạo mảng 2 chiều
-    let matrix = [];
-    for (let i = 0; i < n; i++) {
-        matrix[i] = matrixInput[i].split(',').map(Number);
-    }
-
-    let maxSum = 0;
-
-    // Lặp qua ma trận để tìm tổng lớn nhất của các hình vuông K x K
-    for (let i = 0; i <= n - k; i++) {
-        for (let j = 0; j <= n - k; j++) {
-            let currentSum = 0;
-            for (let x = 0; x < k; x++) {
-                for (let y = 0; y < k; y++) {
-                    currentSum += matrix[i + x][j + y];
-                }
-            }
-            if (currentSum > maxSum) {
-                maxSum = currentSum;
-            }
-        }
-    }
-
-    // Hiển thị kết quả
-    const outputDiv = document.getElementById('output');
-    outputDiv.innerText = 'Tổng Lớn Nhất: ' + maxSum;
-    outputDiv.style.display = 'block';
-}
-</script>
+<script src="script.js"></script> <!-- Kết nối đến tệp JavaScript -->
 
 </body>
 </html>
