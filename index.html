@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tìm Tổng Lớn Nhất K x K by tan sinh vien huflit</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+        }
+        #output {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .credit {
+            margin-top: 40px;
+            font-style: italic;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="text-center">Tìm Tổng Lớn Nhất K x K</h1>
+    <form id="matrixForm">
+        <div class="form-group">
+            <label for="n">N (kích thước ma trận):</label>
+            <input type="number" class="form-control" id="n" min="1" max="50" required>
+        </div>
+        <div class="form-group">
+            <label for="k">K (kích thước hình vuông):</label>
+            <input type="number" class="form-control" id="k" min="1" required>
+        </div>
+        <div class="form-group">
+            <label for="matrix">Nhập ma trận (các giá trị cách nhau bởi dấu phẩy, mỗi hàng trên một dòng mới):</label>
+            <textarea class="form-control" id="matrix" rows="10" required></textarea>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="findMaxSum()">Tính Tổng Lớn Nhất</button>
+    </form>
+
+    <div id="output" class="alert alert-info mt-4" style="display: none;"></div>
+
+    <button class="btn btn-secondary mt-4" data-toggle="collapse" data-target="#cppCode">
+        Hiện/Ẩn Mã C++ để sao chép
+    </button>
+    <div id="cppCode" class="collapse mt-3">
+        <pre>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main() {
+    int n, k;
+    cin >> n >> k;
+    vector&lt;vector&lt;int&gt;&gt; matrix(n, vector&lt;int&gt;(n));
+
+    for (int i = 0; i &lt; n; ++i) {
+        for (int j = 0; j &lt; n; ++j) {
+            cin >> matrix[i][j];
+        }
+    }
+
+    int maxSum = 0;
+
+    for (int i = 0; i &lt;= n - k; ++i) {
+        for (int j = 0; j &lt;= n - k; ++j) {
+            int currentSum = 0;
+            for (int x = 0; x &lt; k; ++x) {
+                for (int y = 0; y &lt; k; ++y) {
+                    currentSum += matrix[i + x][j + y];
+                }
+            }
+            maxSum = max(maxSum, currentSum);
+        }
+    }
+
+    cout &lt;&lt; "Tổng Lớn Nhất: " &lt;&lt; maxSum &lt;&lt; endl;
+    return 0;
+}
+        </pre>
+    </div>
+
+    <button class="btn btn-secondary mt-4" data-toggle="collapse" data-target="#csharpCode">
+        Hiện/Ẩn Mã C# để sao chép
+    </button>
+    <div id="csharpCode" class="collapse mt-3">
+        <pre>
+using System;
+using System.Linq;
+
+class Program {
+    static void Main() {
+        int n = int.Parse(Console.ReadLine());
+        int k = int.Parse(Console.ReadLine());
+        int[,] matrix = new int[n, n];
+
+        for (int i = 0; i &lt; n; i++) {
+            var values = Console.ReadLine().Split(',').Select(int.Parse).ToArray();
+            for (int j = 0; j &lt; n; j++) {
+                matrix[i, j] = values[j];
+            }
+        }
+
+        int maxSum = 0;
+
+        for (int i = 0; i &lt;= n - k; i++) {
+            for (int j = 0; j &lt;= n - k; j++) {
+                int currentSum = 0;
+                for (int x = 0; x &lt; k; x++) {
+                    for (int y = 0; y &lt; k; y++) {
+                        currentSum += matrix[i + x, j + y];
+                    }
+                }
+                if (currentSum &gt; maxSum) {
+                    maxSum = currentSum;
+                }
+            }
+        }
+
+        Console.WriteLine("Tổng Lớn Nhất: " + maxSum);
+    }
+}
+        </pre>
+    </div>
+
+    <button class="btn btn-secondary mt-4" data-toggle="collapse" data-target="#pythonCode">
+        Hiện/Ẩn Mã Python để sao chép
+    </button>
+    <div id="pythonCode" class="collapse mt-3">
+        <pre>
+n, k = map(int, input().split())
+matrix = [list(map(int, input().split(','))) for _ in range(n)]
+
+max_sum = 0
+
+for i in range(n - k + 1):
+    for j in range(n - k + 1):
+        current_sum = 0
+        for x in range(k):
+            for y in range(k):
+                current_sum += matrix[i + x][j + y]
+        max_sum = max(max_sum, current_sum)
+
+print("Tổng Lớn Nhất:", max_sum)
+        </pre>
+    </div>
+
+    <!-- Credit Section -->
+    <div class="credit">
+        <p>from <strong>nimnim with luv</strong></p>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+function findMaxSum() {
+    const n = parseInt(document.getElementById('n').value);
+    const k = parseInt(document.getElementById('k').value);
+    const matrixInput = document.getElementById('matrix').value.trim().split('\n');
+
+    // Khởi tạo mảng 2 chiều
+    let matrix = [];
+    for (let i = 0; i < n; i++) {
+        matrix[i] = matrixInput[i].split(',').map(Number);
+    }
+
+    let maxSum = 0;
+
+    // Lặp qua ma trận để tìm tổng lớn nhất của các hình vuông K x K
+    for (let i = 0; i <= n - k; i++) {
+        for (let j = 0; j <= n - k; j++) {
+            let currentSum = 0;
+            for (let x = 0; x < k; x++) {
+                for (let y = 0; y < k; y++) {
+                    currentSum += matrix[i + x][j + y];
+                }
+            }
+            if (currentSum > maxSum) {
+                maxSum = currentSum;
+            }
+        }
+    }
+
+    // Hiển thị kết quả
+    const outputDiv = document.getElementById('output');
+    outputDiv.innerText = 'Tổng Lớn Nhất: ' + maxSum;
+    outputDiv.style.display = 'block';
+}
+</script>
+
+</body>
+</html>
